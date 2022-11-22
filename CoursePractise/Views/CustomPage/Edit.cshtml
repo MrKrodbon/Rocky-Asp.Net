@@ -1,0 +1,45 @@
+﻿@model CoursePractise.Models.CustomPage
+
+@{
+	ViewData["Title"] = "Custom Page";
+}
+
+<form method="post" asp-action="Edit">
+	<div class="border p-3">
+		<div asp-validation-summary="ModelOnly">
+		
+		</div>
+		<div class="text-info">
+				<h2 class="text-info pl-3">Add something on your wish</h2>
+		</div>
+		
+		<div class="row">
+			<div class="col-8">
+				<div class="col-4">
+					<label asp-for="CustomName"></label>
+				</div>
+				<div class="col-8">
+					<input asp-for="CustomName" class="form-control" />
+					<span asp-validation-for="CustomName" class="text-danger"></span>
+				</div>
+				<br />
+				<div class="form-group row">
+					<div class="col-4 offset-2 row">
+						<div class="col">
+
+							<input type="submit" class="btn btn-primary w-100" value="Save"/>
+						</div>
+				
+						<div class="col">
+							<a asp-action="Index" class="btn btn-success w-100">
+							<i class="fa-solid fa-backward"></i> 
+							</a>
+					
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+

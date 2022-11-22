@@ -1,0 +1,89 @@
+﻿using CoursePractise.Data;
+using CoursePractise.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace CoursePractise.Controllers
+{
+    public class CustomPageController : Controller
+    {
+
+        private  readonly ApplicationDbContext _db;
+        public CustomPageController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
+
+        // GET: CustomPageController
+        public ActionResult Index()
+        {
+            IEnumerable<CustomPage> objList = _db.CustomPage;
+            return View(objList);
+        }
+
+        // GET: CustomPageController/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+
+        // GET: CustomPageController/Create
+        public ActionResult Create()
+        {
+            
+            return View();
+        }
+
+        // POST: CustomPageController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CustomPage obj)
+        {
+           if (ModelState.IsValid)
+           {
+                _db.CustomPage.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction(nameof(Index));
+           }
+           return View(obj);
+        }
+
+        // GET: CustomPageController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            if (id == 0) NotFound();
+            var obj = _db.CustomPage.Find(id);
+            if (obj == null) NotFound();
+            return View(obj);
+        }
+
+        // POST: CustomPageController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(CustomPage obj)
+        {
+            _db.CustomPage.Update(obj);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: CustomPageController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            if (id == 0) NotFound();
+            var obj = _db.CustomPage.Find(id);
+            if (obj == null) NotFound();
+            return View(obj);
+        }
+
+        // POST: CustomPageController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(CustomPage obj)
+        {
+            _db.CustomPage.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+    }
+}
