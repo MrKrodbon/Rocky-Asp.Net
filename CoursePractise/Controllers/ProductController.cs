@@ -21,11 +21,11 @@ namespace CoursePractise.Controllers
         public IActionResult Index()
         {
             IEnumerable<Product> objList = _db.Product;
-            //foreach (var obj in objList)
-            //{
-            //    obj.Category = _db.Category.FirstOrDefault(u => u.CategoryId == obj.ID);
+            foreach (var obj in objList)
+            {
+                obj.Category = _db.Category.FirstOrDefault(u => u.CategoryId == obj.ID);
 
-            //}
+            }
             return View(objList);
         }
         public IActionResult Create(int? id)
@@ -41,20 +41,7 @@ namespace CoursePractise.Controllers
                 })
             };
 
-            if (id == null)
-            {
-                //this is for create
-                return View(productVM);
-            }
-            else
-            {
-                productVM.Product = _db.Product.Find(id.GetValueOrDefault());
-                if (productVM.Product == null)
-                {
-                    return NotFound();
-                }
-                return View(productVM);
-            }
+            return View(productVM);
         }
 
         [HttpPost]
@@ -78,23 +65,10 @@ namespace CoursePractise.Controllers
 
            productVM.Product.Image = fileName + extension;
 
-           _db.Product.Add(productVM.Product);
-
+           _db.Product.Add(productVM.Product); 
 
            _db.SaveChanges();
            return RedirectToAction("Index");
-                
-            //else
-            //{
-            //    return RedirectToAction("Index");
-            //}
-                  
-            //productVM.CategorySelectList = _db.Category.Select(i => new SelectListItem
-            //{
-            //    Text = i.CategoryName,
-            //    Value = i.CategoryId.ToString()
-            //});
-           // return View(productVM);
 
         }
 
@@ -105,7 +79,7 @@ namespace CoursePractise.Controllers
             {
                 return NotFound();
             }
-            var obj = _db.Category.Find(id);
+            var obj = _db.Product.Find(id);
             if (obj == null)
             {
                 return NotFound();
@@ -116,9 +90,9 @@ namespace CoursePractise.Controllers
         //Post - Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Category obj)
+        public IActionResult Delete(Product obj)
         {
-            _db.Category.Remove(obj);
+            _db.Product.Remove(obj);
             _db.SaveChanges();
             return RedirectToAction("Index");
 

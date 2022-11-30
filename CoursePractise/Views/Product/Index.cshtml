@@ -23,9 +23,6 @@
 						<th>
 							Price
 						</th>
-						<th>
-							Category
-						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -34,11 +31,14 @@
 						<tr>
 							<td width="50%">@obj.ProductName</td>
 							<td width="30%">@obj.Price</td>
-							<td width="20%">@obj.Category.CategoryName</td>
 							<td	class="text-center">
 								<div class="w-75 btn btn-group" role="group">
 									<a asp-route-Id="@obj.ID" asp-action="Create" class="btn btn-primary mx-2">
 									<i class="fa-solid fa-pen-to-square"></i>
+									</a>
+								
+									<a asp-route-Id="@obj.ID" asp-action="Delete" class="btn btn-danger mx-2">
+									<i class="fa-solid fa-trash"></i>
 									</a>
 								</div>
 							</td>
