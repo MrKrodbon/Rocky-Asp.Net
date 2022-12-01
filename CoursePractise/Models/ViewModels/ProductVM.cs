@@ -9,6 +9,9 @@ namespace CoursePractise.Models.ViewModels
 
         public IEnumerable<SelectListItem> CategorySelectList { get; set; }
 
-        public Category Category { get; set; }
+        public IEnumerable<SelectListItem> CustomPageSelectList { get; set; }
+
+
+        public CustomPage CustomPage { get; set; }
     }
 }
