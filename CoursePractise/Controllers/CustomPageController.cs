@@ -21,30 +21,24 @@ namespace CoursePractise.Controllers
             return View(objList);
         }
 
-        // GET: CustomPageController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
         // GET: CustomPageController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
-            
             return View();
         }
 
         // POST: CustomPageController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CustomPage obj)
+        public IActionResult Create(CustomPage obj)
         {
-           if (ModelState.IsValid)
-           {
+            if (ModelState.IsValid)
+            {
                 _db.CustomPage.Add(obj);
                 _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
-           }
+            }
            return View(obj);
         }
 
