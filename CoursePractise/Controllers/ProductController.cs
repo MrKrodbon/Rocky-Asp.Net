@@ -24,8 +24,9 @@ namespace CoursePractise.Controllers
             foreach (var obj in objList)
             {
                 obj.Category = _db.Category.FirstOrDefault(u => u.CategoryId == obj.ID);
-
+                obj.CustomPage = _db.CustomPage.FirstOrDefault(u => u.Id == obj.ID);
             }
+
             return View(objList);
         }
         public IActionResult Create(int? id)
@@ -38,6 +39,11 @@ namespace CoursePractise.Controllers
                 {
                     Text = i.CategoryName,
                     Value = i.CategoryId.ToString()
+                }),
+                CustomPageSelectList = _db.CustomPage.Select(i => new SelectListItem
+                {
+                    Text = i.CustomName,
+                    Value = i.Id.ToString()
                 })
             };
 
@@ -81,19 +87,17 @@ namespace CoursePractise.Controllers
                 {
                     Text = i.CategoryName,
                     Value = i.CategoryId.ToString()
+                }),
+                CustomPageSelectList = _db.CustomPage.Select(i => new SelectListItem
+                {
+                    Text = i.CustomName,
+                    Value = i.Id.ToString()
                 })
             };
-            if (id == 0)
+            productVM.Product = _db.Product.Find(id);
+            if (productVM.Product == null)
             {
                 return NotFound();
-            }
-            else
-            {
-                productVM.Product = _db.Product.Find(id);
-                if (productVM.Product == null)
-                {
-                    return NotFound();
-                }
             }
             
             
@@ -110,7 +114,8 @@ namespace CoursePractise.Controllers
             var objFromDb = _db.Product.AsNoTracking().FirstOrDefault(u => u.ID == id);
             productVM.Product.ID = objFromDb.ID;
             productVM.Product.Image = objFromDb.Image;
-            
+            if (files.Count > 0)
+            {
                 string upload = webRootPath + WebConstants.ImagesPath;
                 string fileName = Guid.NewGuid().ToString();
                 string extension = Path.GetExtension(files[0].FileName);
@@ -126,8 +131,11 @@ namespace CoursePractise.Controllers
                     files[0].CopyTo(fileStream);
                 }
                 productVM.Product.Image = fileName + extension;
-                
-            
+            }
+            else
+            {
+
+            }
             _db.Product.Update(productVM.Product);
 
             _db.SaveChanges();
@@ -138,7 +146,7 @@ namespace CoursePractise.Controllers
         public IActionResult Delete(int id)
         {
             var obj = _db.Product.Find(id);
-            if (id == null || id == 0)
+            if ( id == 0)
             {
                 return NotFound();
             }
