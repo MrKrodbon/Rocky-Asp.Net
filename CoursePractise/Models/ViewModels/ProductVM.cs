@@ -11,7 +11,6 @@ namespace CoursePractise.Models.ViewModels
 
         public IEnumerable<SelectListItem> CustomPageSelectList { get; set; }
 
-
-        public CustomPage CustomPage { get; set; }
+        
     }
 }

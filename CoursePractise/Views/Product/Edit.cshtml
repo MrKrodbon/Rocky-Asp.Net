@@ -7,7 +7,7 @@
 		<input asp-for="Product.ID" hidden/>
 		
 		<div class="text-info">
-			<h2 class="text-info pl-3">Edit Category</h2>
+			<h2 class="text-info pl-3">Edit Product</h2>
 		</div>
 		<div class="col-4">
 				@* Keep this empty *@
@@ -26,6 +26,7 @@
 					</div>
 
 				</div>
+				<br />
 				<div class="form-group row">
 					<div class="col-4">
 						<label asp-for="Product.Price"></label>
@@ -36,7 +37,7 @@
 					</div>
 
 				</div>
-				
+				<br />
 				<div class="form-group row">
 					<div class="col-4">
 						<label asp-for="Product.Description"></label>
@@ -47,6 +48,7 @@
 					</div>
 
 				</div>
+				<br />
 				<div class="form-group row">
 					<div class="col-4">
 						Image
@@ -56,6 +58,7 @@
 					</div>
 
 				</div>
+				<br />
 				<div class="form-group row">
 					<div class="col-4">
 						<label asp-for="Product.CategoryId"></label>
@@ -69,6 +72,19 @@
 
 				</div>
 				
+				<br />
+				<div class="form-group row">
+					<div class="col-4">
+						<label asp-for="Product.CustomPageId"></label>
+					</div>
+					<div class="col-8">
+						<select asp-for="Product.CustomPageId" asp-items="@Model.CustomPageSelectList" class="form-control">
+							<option disabled selected>--Select Category--</option>
+						</select>
+						<span asp-validation-for="Product.CustomPageId" class="text-danger"></span>
+					</div>
+
+				</div>
 				<br />
 
 				<div class="form-group row">

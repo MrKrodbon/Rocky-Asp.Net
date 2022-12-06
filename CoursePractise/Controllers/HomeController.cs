@@ -1,5 +1,8 @@
-﻿using CoursePractise.Models;
+﻿using CoursePractise.Data;
+using CoursePractise.Models;
+using CoursePractise.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace CoursePractise.Controllers
@@ -7,15 +10,22 @@ namespace CoursePractise.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,ApplicationDbContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
         public IActionResult Index()
         {
-            return View();
+            HomeVM homeVM = new HomeVM()
+            {
+                Products = _db.Product.Include(u => u.Category).Include(u => u.CustomPage),
+                Categories = _db.Category
+            };
+            return View(homeVM);
         }
 
         public IActionResult Privacy()

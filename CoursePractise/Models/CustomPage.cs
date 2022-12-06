@@ -7,7 +7,7 @@ namespace CoursePractise.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public string CustomName { get; set; }
+        public string ? CustomName { get; set; }
 
 
 

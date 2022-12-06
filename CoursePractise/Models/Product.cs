@@ -9,9 +9,9 @@ namespace CoursePractise.Models
         public int ID { get; set; }
         [Required]
         public string ProductName { get; set; }
-        
+
         public string Description { get; set; }
-        
+
         [Range(1, int.MaxValue)]
         public double Price { get; set; }
 
@@ -21,6 +21,14 @@ namespace CoursePractise.Models
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
+
+        [Display(Name ="Custom Page Id")]
+        public int CustomPageId { get; set; }
+        [ForeignKey("CustomPageId")]
+        public virtual CustomPage CustomPage { get; set; }
+
+
+
 
     }
 }
