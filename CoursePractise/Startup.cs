@@ -14,6 +14,16 @@ namespace CoursePractise
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
+            services.AddSession(
+                Options =>
+                {
+                    Options.IdleTimeout = TimeSpan.FromMinutes(10);
+                    Options.Cookie.HttpOnly = true;
+                    Options.Cookie.IsEssential = true;
+                });
+               
+                
             services.AddDbContext<ApplicationDbContext>(context => context.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
@@ -23,6 +33,7 @@ namespace CoursePractise
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
+            app.UseSession();
             app.UseEndpoints(endpoint => endpoint.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}"));
 
         }
