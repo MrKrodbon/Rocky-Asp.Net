@@ -1,9 +1,10 @@
 ﻿using CoursePractise.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoursePractise.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -14,6 +15,8 @@ namespace CoursePractise.Data
         public DbSet<CustomPage> CustomPage { get; set; }
 
         public DbSet<Product> Product { get; set; }
-        
+
+        public DbSet<ApplicationUser> User { get; set; }
+
     }
 }
