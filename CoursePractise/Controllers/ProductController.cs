@@ -1,12 +1,15 @@
 ﻿using CoursePractise.Data;
 using CoursePractise.Models;
 using CoursePractise.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace CoursePractise.Controllers
 {
+    [Authorize(Roles = WebConstants.AdminRole)]
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -32,7 +35,7 @@ namespace CoursePractise.Controllers
         public IActionResult Create(int? id)
         {
 
-            ProductVM productVM = new ProductVM()
+            ProductViewModel productVM = new ProductViewModel()
             {
                 Product = new Product(),
                 CategorySelectList = _db.Category.Select(i => new SelectListItem
@@ -52,7 +55,7 @@ namespace CoursePractise.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public IActionResult Create(ProductVM productVM)
+        public IActionResult Create(ProductViewModel productVM)
         {
 
             var files = HttpContext.Request.Form.Files;
@@ -80,7 +83,7 @@ namespace CoursePractise.Controllers
         //Get - edit
         public IActionResult Edit(int id)
         {
-            ProductVM productVM = new ProductVM()
+            ProductViewModel productVM = new ProductViewModel()
             {
                 Product = new Product(),
                 CategorySelectList = _db.Category.Select(i => new SelectListItem
@@ -107,7 +110,7 @@ namespace CoursePractise.Controllers
         //Post - edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(ProductVM productVM , int id)
+        public IActionResult Edit(ProductViewModel productVM , int id)
         {
             var files = HttpContext.Request.Form.Files;
             string webRootPath = _webHostEnvironment.WebRootPath;

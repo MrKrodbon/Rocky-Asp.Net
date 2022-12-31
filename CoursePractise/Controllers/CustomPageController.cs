@@ -1,10 +1,13 @@
 ﻿using CoursePractise.Data;
 using CoursePractise.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace CoursePractise.Controllers
 {
+    [Authorize(Roles = WebConstants.AdminRole)]
     public class CustomPageController : Controller
     {
 

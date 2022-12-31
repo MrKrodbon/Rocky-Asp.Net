@@ -1,4 +1,7 @@
 ﻿using CoursePractise.Data;
+using CoursePractise.Utility;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoursePractise
@@ -22,8 +25,14 @@ namespace CoursePractise
                     Options.Cookie.HttpOnly = true;
                     Options.Cookie.IsEssential = true;
                 });
-               
-                
+            services.AddTransient<IEmailSender, EmailSender>();
+            //AddEntityFrameworkStores added user to database
+            
+            services.AddIdentity<IdentityUser,IdentityRole>()
+                .AddDefaultTokenProviders().AddDefaultUI()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
             services.AddDbContext<ApplicationDbContext>(context => context.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
@@ -32,9 +41,13 @@ namespace CoursePractise
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
-            app.UseEndpoints(endpoint => endpoint.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}"));
+            app.UseEndpoints(endpoint => {
+                endpoint.MapRazorPages();
+                endpoint.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
 
         }
     }

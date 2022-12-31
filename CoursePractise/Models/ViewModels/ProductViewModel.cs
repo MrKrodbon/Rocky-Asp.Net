@@ -2,7 +2,7 @@
 
 namespace CoursePractise.Models.ViewModels
 {
-    public class ProductVM
+    public class ProductViewModel
     {
 
         public Product Product { get; set; }
