@@ -1,9 +1,9 @@
 ﻿namespace CoursePractise.Models.ViewModels
 {
-    public class DetailsViewModel
+    public class DeteilsVM
     {
 
-        public DetailsViewModel()
+        public DeteilsVM()
         {
             Product = new Product();
         }

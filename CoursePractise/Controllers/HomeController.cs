@@ -21,7 +21,7 @@ namespace CoursePractise.Controllers
 
         public IActionResult Index()
         {
-            HomeViewModel homeVM = new HomeViewModel()
+            HomeVM homeVM = new HomeVM()
             {
                 Products = _db.Product.Include(u => u.Category).Include(u => u.CustomPage),
                 Categories = _db.Category
@@ -36,8 +36,8 @@ namespace CoursePractise.Controllers
             {
                 shoppingCarts = HttpContext.Session.Get<List<ShoppingCart>>(WebConstants.SessionCart);
             }
-
-            DetailsViewModel deteailsVM = new DetailsViewModel()
+           
+            DeteilsVM deteailsVM = new DeteilsVM()
             {
                 Product = _db.Product.Include(u => u.Category).Include(u => u.CustomPage)
                 .Where(u => u.ID == id).FirstOrDefault(),

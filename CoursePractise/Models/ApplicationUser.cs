@@ -9,5 +9,8 @@ namespace CoursePractise.Models
     {
         [DisplayName("Full Name")]
         public string FullName { get; set; }
+
+
+
     }
 }
